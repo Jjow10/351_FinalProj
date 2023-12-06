@@ -222,4 +222,5 @@ int main(){
     for(int i=41; i<46; i++){     // make gpio back to readmode after done
         GPIO_readmode(i+29);   
     }
+    LED_all_return();
 }
