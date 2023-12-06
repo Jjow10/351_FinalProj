@@ -169,7 +169,7 @@ void LED_all_on(){
 int main(){
 
     char config_pin[30];
-    for(int i=41; i<46; i++){     // importing necessary pins as GPIO, inputmode
+    for(int i=41; i<47; i++){     // importing necessary pins as GPIO, inputmode
         sprintf(config_pin,"config-pin p8.%i gpio",i);  
         runCommand(config_pin); // tell BBG to use pin8.41 ~ 46 as GPIO      
         GPIO_inputmode(i+29);   // make GPIO_70 ~ 75 to an input mode 
@@ -181,7 +181,7 @@ int main(){
     LED_all_on();
     sleepForMs(3000);
 
-    for(int i=70; i<75; i++){     // checking early press
+    for(int i=72; i<75; i++){     // checking early press
         char color_button_path [50];
         sprintf(color_button_path,"%s%i/value",GPIO,i);   // open up the gpio/value file
         if (isUserButtonPressed(color_button_path) == true){
@@ -199,8 +199,18 @@ int main(){
     //  Comparing the Button = LED //
     /////////////////////////////////
 
-
-
+    
+    //////////////////Button test//////////////
+    while(1){
+        for(int i=72; i<75; i++){     // checking early press
+        char color_button_path [50];
+        sprintf(color_button_path,"%s%i/value",GPIO,i);   // open up the gpio/value file
+        if (isUserButtonPressed(color_button_path) == true){
+            printf("GPIO %i is pressed!\n",i);            
+        }
+    }
+    }
+    /////////////////////////////////////////////
 
 
 
