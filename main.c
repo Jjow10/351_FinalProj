@@ -29,10 +29,10 @@
 #define SEQUENCE_LENGTH 5
 #define NUM_OF_COLOUR 4
 enum Colour {
-    RED = 0,
-    YELLOW = 1,
-    GREEN = 2,
-    BLUE = 3
+    red = 0,
+    yellow = 1,
+    green = 2,
+    blue = 3
 }
 int main(){
 
