@@ -11,7 +11,7 @@
 #include "buttonState.h"
 #include "LED.h"
 #include "GPIO_mode.h"
-
+#include "displayLED.h"
 /**
  * BUTTON WIRING:
  * RED -> P_8.41
