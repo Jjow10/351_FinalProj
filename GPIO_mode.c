@@ -1,6 +1,9 @@
 #include "GPIO_mode.h"
+#include "timeFunctions.h"
 
-static void runCommand(char* command){   // Execute the shell command (output into pipe)
+#define GPIO "/sys/class/gpio/gpio"
+
+void runCommand(char* command){   // Execute the shell command (output into pipe)
 
     FILE *pipe = popen(command, "r");
     // Ignore output of the command; but consume it 
@@ -20,10 +23,10 @@ static void runCommand(char* command){   // Execute the shell command (output in
     }
 }
 
-static int GPIO_inputmode(int GPIO_num){ // wait for the user to press GPIO_GPIO_num
+int GPIO_inputmode(int GPIO_num){ // wait for the user to press GPIO_GPIO_num
 
     char address_gpio[50];
-    sprintf(address_gpio,"%s%i/direction",GPIO,GPIO_num);   // open up the gpio/direction file
+    sprintf(address_gpio,"%s%i/direction", GPIO, GPIO_num);   // open up the gpio/direction file
     FILE* pFile = fopen(address_gpio,"w");
     
     if(pFile ==NULL){
@@ -41,7 +44,7 @@ static int GPIO_inputmode(int GPIO_num){ // wait for the user to press GPIO_GPIO
     
 }
 
-static int GPIO_readmode(int GPIO_num){  //make a gpio to read mode
+int GPIO_readmode(int GPIO_num){  //make a gpio to read mode
 
     char address_gpio[50];
     sprintf(address_gpio,"%s%i/direction",GPIO,GPIO_num);  //open up the gpio/direction file

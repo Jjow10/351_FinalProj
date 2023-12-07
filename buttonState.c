@@ -1,11 +1,13 @@
 #include "buttonState.h"
 
-static bool isUserButtonPressed() {
+#define BUFFER_SIZE 2000
+
+bool isButtonPressed(char* colourPath) {
     char buff[BUFFER_SIZE];
 
-    FILE *pbuttonValueFile = fopen(USER_BUTTON_VALUE_FILE_PATH, "r");
+    FILE *pbuttonValueFile = fopen(colourPath, "r");
     if (pbuttonValueFile == NULL) {
-        printf("ERROR OPENING %s.", USER_BUTTON_VALUE_FILE_PATH);
+        printf("ERROR OPENING %s", colourPath);
         exit(1);
     }
 

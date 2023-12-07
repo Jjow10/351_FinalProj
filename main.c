@@ -7,27 +7,32 @@
 #include <fcntl.h>      // for open()
 #include <unistd.h>     // for close()
 #include <stdbool.h>
-#include "timeFunctions.c"
-#include "buttonState.c"
-#include "LED.c"
-#include "GPIO_mode.c"
+#include "timeFunctions.h"
+#include "buttonState.h"
+#include "LED.h"
+#include "GPIO_mode.h"
 
+/**
+ * BUTTON WIRING:
+ * RED -> P_8.41
+ * YELLOW -> P_8.42
+ * GREEN -> P_8.43
+ * BLUE -> P_8.44
+*/
 #define GPIO_export "/sys/class/gpio/export"
 #define GPIO "/sys/class/gpio/gpio"
-#define RED "/sys/class/gpio/gpio70"
-#define GREEN "/sys/class/gpio71/"
-#define BLUE "/sys/class/gpio72/"
-#define YELLOW "/sys/class/gpio73/"
-#define WHITE "/sys/class/gpio74/"
-
+#define RED "/sys/class/gpio/gpio74/value"
+#define YELLOW "/sys/class/gpio/gpio75/value"
+#define GREEN "/sys/class/gpio/gpio72/value"
+#define BLUE "/sys/class/gpio/gpio73/value"
 
 int main(){
 
-    char config_pin[30];
-    for(int i=41; i<47; i++){     // importing necessary pins as GPIO, inputmode
-        sprintf(config_pin,"config-pin p8.%i gpio",i);  
-        runCommand(config_pin); // tell BBG to use pin8.41 ~ 46 as GPIO      
-        GPIO_inputmode(i+29);   // make GPIO_70 ~ 75 to an input mode 
+    char config_pin[50];
+    for(int i=41; i<45; i++) {     // importing necessary pins as GPIO, inputmode
+        sprintf(config_pin,"config-pin p8.%i gpio",i);
+        runCommand(config_pin); // Set pins 8.41 - 8.44 as GPIO
+        GPIO_inputmode(i+31);   // Set GPIO_72 - 75 to input mode
     }
     
     LED_all_off();
@@ -38,7 +43,7 @@ int main(){
     for(int i=72; i<75; i++){     // checking early press
         char color_button_path [50];
         sprintf(color_button_path,"%s%i/value",GPIO,i);   // open up the gpio/value file
-        if (isUserButtonPressed(color_button_path) == true){
+        if (isButtonPressed(color_button_path) == true){
             printf("You pressed too soon!\n");
             exit(1);
         }
@@ -55,14 +60,21 @@ int main(){
 
     
     //////////////////Button test//////////////
-    while(1){
-        for(int i=72; i<75; i++){     // checking early press
-        char color_button_path [50];
-        sprintf(color_button_path,"%s%i/value",GPIO,i);   // open up the gpio/value file
-        if (isUserButtonPressed(color_button_path) == true){
-            printf("GPIO %i is pressed!\n",i);            
+    ;
+
+    while(1) {
+        if (isButtonPressed(RED)) {
+            printf("RED is pressed!\n");
         }
-    }
+        else if (isButtonPressed(GREEN)) {
+            printf("GREEN is pressed!\n");
+        }
+        else if (isButtonPressed(BLUE)) {
+            printf("BLUE is pressed!\n");
+        }
+        else if (isButtonPressed(YELLOW)) {
+            printf("YELLOW is pressed!\n");
+        }
     }
     /////////////////////////////////////////////
 

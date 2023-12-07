@@ -5,8 +5,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdio.h>
-#define USER_BUTTON_VALUE_FILE_PATH "/sys/class/gpio/gpio72/value"
 
-static bool isUserButtonPressed();
+bool isButtonPressed(char* colourPath);
 
 #endif

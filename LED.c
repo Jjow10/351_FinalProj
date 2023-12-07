@@ -1,6 +1,5 @@
 #include "LED.h"
 
-
 void LED_trigger(int LED_num,int status){ //revert triggers / brightness of LEDS
      
     char LEDtoRemove[50];   // trigger file location
