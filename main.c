@@ -26,6 +26,14 @@
 #define GREEN "/sys/class/gpio/gpio72/value"
 #define BLUE "/sys/class/gpio/gpio73/value"
 
+#define SEQUENCE_LENGTH 5
+#define NUM_OF_COLOUR 4
+enum Colour {
+    RED = 0,
+    YELLOW = 1,
+    GREEN = 2,
+    BLUE = 3
+}
 int main(){
 
     char config_pin[50];
@@ -48,12 +56,27 @@ int main(){
             exit(1);
         }
     }
-
     /////////////////////////////
     //  LED MATRIX LOGIC HERE //
     ////////////////////////////
-    LED_all_on();
-    
+    //LED_all_on();
+    srand(time(NULL));
+    enum Colour displayLetter[SEQUENCE_LENGTH]
+    for (int i = 0; i < SEQUENCE_LENGTH; i++){
+        displayLetter[i] = rand() % NUM_OF_COLOUR;
+    }
+    //Testing Purpose
+    printf("Generated Sequence:\n");
+    for (int i = 0; i < SEQUENCE_LENGTH; i++){
+        printf("%d ", displayLetter[i]);
+    }
+    printf("\n");
+
+    for (int i = 0; i < SEQUENCE_LENGTH; i++){
+        displayLetters(displayLetter[i]);
+        sleepForMS(2000);
+    }
+
     /////////////////////////////////
     //  Comparing the Button = LED //
     /////////////////////////////////

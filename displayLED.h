@@ -23,6 +23,7 @@ void initDisplay();
 void displayIntVal(int numToDisplay);
 //Display inputted Double on 8x8 LED Matrix
 void displayDoubleVal(double numToDisplay);
-
+//Display inputted integer mapped to letter on 8x8 LED Matrix
+void displayLetters(int numToLetter);
 
 #endif
