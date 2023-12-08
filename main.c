@@ -62,18 +62,17 @@ int main() {
     /////////////////////////////////
     bool gameIsNotOver = true;
     int patternSequence[BUFFER_SIZE];
-    int freePosition = 0;
+    int numOfSequence = 5;
     srand(time(NULL));
     while (gameIsNotOver) {
         // Generate random integer between 0 and 3
-        int random_colour = rand() % 3;
-        // Append generated colour to patternSequence
-        patternSequence[freePosition] = random_colour;
-        freePosition++;
-        
-        displayLetters(patternSequence[freePosition]);
-        sleepForMs(1000);
-
+        for(int i = 0; i < numOfSequence; ++i) {
+            patternSequence[i] = rand() % 3;
+        }
+        for(int i = 0; i < numOfSequence; ++i) {
+            displayLetters(patternSequence[freePosition]);
+            sleepForMs(1500);
+        }
         // Get user button input
         // bool stateUserInput = true;
         // int lastButtonPressed = -1;
