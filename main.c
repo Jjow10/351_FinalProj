@@ -23,13 +23,15 @@
  */
 #define GPIO_export "/sys/class/gpio/export"
 #define GPIO "/sys/class/gpio/gpio"
-#define RED "/sys/class/gpio/gpio74/value"
-#define YELLOW "/sys/class/gpio/gpio75/value"
-#define GREEN "/sys/class/gpio/gpio72/value"
-#define BLUE "/sys/class/gpio/gpio73/value"
+#define RED_BUTTON_VALUE "/sys/class/gpio/gpio74/value"
+#define YELLOW_BUTTON_VALUE "/sys/class/gpio/gpio75/value"
+#define GREEN_BUTTON_VALUE "/sys/class/gpio/gpio72/value"
+#define BLUE_BUTTON_VALUE "/sys/class/gpio/gpio73/value"
 
 #define BUFFER_SIZE 2000
 #define ROW_FOR_X 4
+
+enum Colours { RED, YELLOW, GREEN, BLUE };
 
 int main() {
     initDisplay();
@@ -79,11 +81,11 @@ int main() {
 
         LED_all_on();
         while ((userSequenceIndex < sequenceSize - 1) && !gameOver) {
-            if (isButtonPressed(RED)) {
+            if (isButtonPressed(RED_BUTTON_VALUE)) {
                 userSequenceIndex++;
                 printf("RED is pressed!\n");
                 sleepForMs(500);
-                if (patternSequence[userSequenceIndex] == 0) {
+                if (patternSequence[userSequenceIndex] == RED) {
                     continue;
                 } else {
                     displayLetters(ROW_FOR_X);
@@ -91,11 +93,11 @@ int main() {
                     printf("Your record is %i!\n", record);
                     gameOver = true;
                 }
-            } else if (isButtonPressed(YELLOW)) {
+            } else if (isButtonPressed(YELLOW_BUTTON_VALUE)) {
                 userSequenceIndex++;
                 printf("YELLOW is pressed!\n");
                 sleepForMs(500);
-                if (patternSequence[userSequenceIndex] == 1) {
+                if (patternSequence[userSequenceIndex] == YELLOW) {
                     continue;
                 } else {
                     displayLetters(ROW_FOR_X);
@@ -103,11 +105,11 @@ int main() {
                     printf("Your record is %i!\n", record);
                     gameOver = true;
                 }
-            } else if (isButtonPressed(GREEN)) {
+            } else if (isButtonPressed(GREEN_BUTTON_VALUE)) {
                 userSequenceIndex++;
                 printf("GREEN is pressed!\n");
                 sleepForMs(500);
-                if (patternSequence[userSequenceIndex] == 2) {
+                if (patternSequence[userSequenceIndex] == GREEN) {
                     continue;
                 } else {
                     displayLetters(ROW_FOR_X);
@@ -115,11 +117,11 @@ int main() {
                     printf("Your record is %i!\n", record);
                     gameOver = true;
                 }
-            } else if (isButtonPressed(BLUE)) {
+            } else if (isButtonPressed(BLUE_BUTTON_VALUE)) {
                 userSequenceIndex++;
                 printf("BLUE is pressed!\n");
                 sleepForMs(500);
-                if (patternSequence[userSequenceIndex] == 3) {
+                if (patternSequence[userSequenceIndex] == BLUE) {
                     continue;
                 } else {
                     displayLetters(ROW_FOR_X);
@@ -136,11 +138,11 @@ int main() {
         while (1) {
             if (isButtonPressed(RED)) {
                 printf("RED is pressed!\n");
-            } else if (isButtonPressed(GREEN)) {
-                printf("GREEN is pressed!\n");
+            } else if (isButtonPressed(GREEN_BUTTON_VALUE)) {
+                printf("GREEN_BUTTON_VALUE is pressed!\n");
             } else if (isButtonPressed(BLUE)) {
                 printf("BLUE is pressed!\n");
-            } else if (isButtonPressed(YELLOW)) {
+            } else if (isButtonPressed(YELLOW_BUTTON_VALUE)) {
                 printf("YELLOW is pressed!\n");
             }
         }
