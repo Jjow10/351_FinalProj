@@ -9,7 +9,11 @@
 #include <unistd.h>  // for close()
 
 #include "GPIO_mode.h"
+#include "LED.h"
+#include "buttonState.h"
 #include "displayLED.h"
+#include "timeFunctions.h"
+
 /**
  * BUTTON WIRING:
  * RED -> P_8.41
@@ -27,6 +31,7 @@
 #define BUFFER_SIZE 2000
 
 int main() {
+    initDisplay();
     char config_pin[50];
 
     for (int i = 41; i < 45; i++) {  // importing necessary pins as GPIO, inputmode
@@ -56,63 +61,64 @@ int main() {
     /////////////////////////////////
     //  Comparing the Button = LED //
     /////////////////////////////////
-    bool gameIsNotOver = true;
+    bool gameOver = false;
     int patternSequence[BUFFER_SIZE];
-    int freePosition = 0;
-    while (gameIsNotOver) {
-        srand(time(NULL));
+    int sequenceSize = 0;
+    srand(time(NULL));
+    while (!gameOver) {
+        sequenceSize++;
         // Generate random integer between 0 and 3
-        int random_colour = rand() % 3;
-        // Append generated colour to patternSequence
-        patternSequence[freePosition] = random_colour;
-        // printf("%d", patternSequence[freePosition]);
-        freePosition++;
-
-        // TODO: Display the patternSequence array using LED
-
+        patternSequence[sequenceSize - 1] = rand() % 4;
+        for (int i = 0; i < sequenceSize; ++i) {
+            LED_all_off();
+            sleepForMs(1000);
+            displayLetters(patternSequence[i]);
+            sleepForMs(1500);
+        }
         // Get user button input
         bool stateUserInput = true;
-        int lastButtonPressed = -1;
         int userSequenceIndex = -1;
 
-        while (stateUserInput && userSequenceIndex < freePosition - 1) {
-            if (isButtonPressed(RED) && lastButtonPressed != 0) {
-                lastButtonPressed = 0;
+        while (stateUserInput && userSequenceIndex < sequenceSize - 1) {
+            if (isButtonPressed(RED)) {
                 userSequenceIndex++;
                 printf("RED is pressed!\n");
+                sleepForMs(500);
                 if (patternSequence[userSequenceIndex] == 0) {
                     continue;
                 } else {
                     // TODO: Display X
-                    exit(0);
+                    gameOver = true;
                 }
-            } else if (isButtonPressed(GREEN) && lastButtonPressed != 1) {
-                lastButtonPressed = 1;
+            } else if (isButtonPressed(YELLOW)) {
                 userSequenceIndex++;
-                printf("GREEN is pressed!\n");
+                printf("YELLOW is pressed!\n");
+                sleepForMs(500);
                 if (patternSequence[userSequenceIndex] == 1) {
                     continue;
                 } else {
                     // TODO: Display X
-                    exit(0);
+                    gameOver = true;
                 }
-            } else if (isButtonPressed(BLUE) && lastButtonPressed != 2) {
-                lastButtonPressed = 2;
-                printf("BLUE is pressed!\n");
+            } else if (isButtonPressed(GREEN)) {
+                userSequenceIndex++;
+                printf("GREEN is pressed!\n");
+                sleepForMs(500);
                 if (patternSequence[userSequenceIndex] == 2) {
                     continue;
                 } else {
                     // TODO: Display X
-                    exit(0);
+                    gameOver = true;
                 }
-            } else if (isButtonPressed(YELLOW) && lastButtonPressed != 3) {
-                lastButtonPressed = 3;
-                printf("YELLOW is pressed!\n");
+            } else if (isButtonPressed(BLUE)) {
+                userSequenceIndex++;
+                printf("BLUE is pressed!\n");
+                sleepForMs(500);
                 if (patternSequence[userSequenceIndex] == 3) {
                     continue;
                 } else {
                     // TODO: Display X
-                    exit(0);
+                    gameOver = true;
                 }
             }
         }
@@ -133,12 +139,12 @@ int main() {
         }
         /////////////////////////////////////////////
         */
-
-        sleepForUs(100);
-        getTimeinUs();
-        for (int i = 41; i < 45; i++) {  // make gpio back to readmode after done
-            GPIO_readmode(i + 31);
-        }
-        LED_all_return();
     }
+
+    sleepForUs(100);
+    getTimeinUs();
+    for (int i = 41; i < 45; i++) {  // make gpio back to readmode after done
+        GPIO_readmode(i + 31);
+    }
+    LED_all_return();
 }
