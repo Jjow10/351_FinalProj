@@ -29,6 +29,7 @@
 #define BLUE "/sys/class/gpio/gpio73/value"
 
 #define BUFFER_SIZE 2000
+#define ROW_FOR_X 4
 
 int main() {
     initDisplay();
@@ -66,23 +67,25 @@ int main() {
         patternSequence[sequenceSize - 1] = rand() % 4;
         for (int i = 0; i < sequenceSize; ++i) {
             LED_all_off();
+            displayLetters(patternSequence[i]);
             sleepForMs(1000);
-                                               displayLetters(patternSequence[i]);
-             for (int j = 72; j < 75; j++) {  // checking early press
+            clearMatrixDisplay();
+            sleepForMs(500);
+            for (int j = 72; j < 75; j++) {  // checking early press
                 char color_button_path[50];
                 sprintf(color_button_path, "%s%i/value", GPIO, j);  // open up the gpio/value file
                 if (isButtonPressed(color_button_path) == true) {
-                   printf("You pressed too soon!\n");
+                    printf("You pressed too soon!\n");
                 exit(1);
                 }
             }
-            sleepForMs(1500);
         }
         // Get user button input
         bool stateUserInput = true;
         int userSequenceIndex = -1;
 
-        while (stateUserInput && userSequenceIndex < sequenceSize - 1) {
+        LED_all_on();
+        while (stateUserInput && (userSequenceIndex < sequenceSize - 1) && !gameOver) {
             if (isButtonPressed(RED)) {
                 userSequenceIndex++;
                 printf("RED is pressed!\n");
@@ -90,7 +93,8 @@ int main() {
                 if (patternSequence[userSequenceIndex] == 0) {
                     continue;
                 } else {
-                    // TODO: Display X
+                    displayLetters(ROW_FOR_X);
+                    sleepForMs(1500);
                     printf("Your record is %i!\n",record);
                     gameOver = true;
                 }
@@ -101,7 +105,8 @@ int main() {
                 if (patternSequence[userSequenceIndex] == 1) {
                     continue;
                 } else {
-                    // TODO: Display X
+                    displayLetters(ROW_FOR_X);
+                    sleepForMs(1500);
                     printf("Your record is %i!\n",record);
                     gameOver = true;
                 }
@@ -112,7 +117,8 @@ int main() {
                 if (patternSequence[userSequenceIndex] == 2) {
                     continue;
                 } else {
-                    // TODO: Display X
+                    displayLetters(ROW_FOR_X);
+                    sleepForMs(1500);
                     printf("Your record is %i!\n",record);
                     gameOver = true;
                 }
@@ -123,7 +129,8 @@ int main() {
                 if (patternSequence[userSequenceIndex] == 3) {
                     continue;
                 } else {
-                    // TODO: Display X
+                    displayLetters(ROW_FOR_X);
+                    sleepForMs(1500);
                     printf("Your record is %i!\n",record);                    
                     gameOver = true;
                 }
@@ -153,5 +160,6 @@ int main() {
     for (int i = 41; i < 45; i++) {  // make gpio back to readmode after done
         GPIO_readmode(i + 31);
     }
+    LED_all_off();
     LED_all_return();
 }
