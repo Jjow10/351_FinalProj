@@ -9,7 +9,11 @@
 #include <unistd.h>  // for close()
 
 #include "GPIO_mode.h"
+#include "LED.h"
+#include "buttonState.h"
 #include "displayLED.h"
+#include "timeFunctions.h"
+
 /**
  * BUTTON WIRING:
  * RED -> P_8.41
@@ -60,25 +64,25 @@ int main() {
     int patternSequence[BUFFER_SIZE];
     int freePosition = 0;
     while (gameIsNotOver) {
-        srand(NULL);
+        srand(time(NULL));
         // Generate random integer between 0 and 3
         int random_colour = rand() % 3;
         // Append generated colour to patternSequence
         patternSequence[freePosition] = random_colour;
         freePosition++;
 
-        for (int i = 0; i < freePosition; ++i){
+        for (int i = 0; i < freePosition; ++i) {
             displayLetters(patternSequence[i]);
-            sleepForMS(1500);
+            sleepForMs(1500);
         }
         LED_all_off();
-        
+
         // Get user button input
-        bool stateUserInput = true;
-        int lastButtonPressed = -1;
-        while (stateUserInput) {
-            
-        }
+        // bool stateUserInput = true;
+        // int lastButtonPressed = -1;
+        // while (stateUserInput) {
+
+        //}
     }
 
     // Uncomment if button testing needed
