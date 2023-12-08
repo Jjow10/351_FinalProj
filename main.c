@@ -59,8 +59,8 @@ int main() {
     bool gameIsNotOver = true;
     int patternSequence[BUFFER_SIZE];
     int freePosition = 0;
+    srand(time(NULL));
     while (gameIsNotOver) {
-        srand(NULL);
         // Generate random integer between 0 and 3
         int random_colour = rand() % 3;
         // Append generated colour to patternSequence
