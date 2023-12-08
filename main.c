@@ -75,6 +75,8 @@ int main() {
         for (int i = 0; i < numOfValues; ++i){
             displayLetters(patternSequence[i]);
             sleepForMs(1500);
+            clearMatrixDisplay();
+            sleepForMs(750);
         }
         
         // Get user button input
@@ -144,6 +146,7 @@ int main() {
         }
         /////////////////////////////////////////////
         */
+        numOfValues++;
 
         sleepForUs(100);
         getTimeinUs();
