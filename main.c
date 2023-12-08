@@ -71,7 +71,7 @@ int main() {
             patternSequence[i] = rand() % 3;
         }
         for(int i = 0; i < numOfSequence; ++i) {
-            displayLetters(patternSequence[freePosition]);
+            displayLetters(patternSequence[i]);
             sleepForMs(1500);
         }
         // Get user button input
