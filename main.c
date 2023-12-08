@@ -63,19 +63,18 @@ int main() {
     /////////////////////////////////
     bool gameIsNotOver = true;
     int patternSequence[BUFFER_SIZE];
-    int numOfSequence = 5;
+    int numOfValues = 5;
     srand(time(NULL));
     while (gameIsNotOver) {
-        srand(time(NULL));
         // Generate random integer between 0 and 3
-        int random_colour = rand() % 3;
-        // Append generated colour to patternSequence
-        patternSequence[freePosition] = random_colour;
-        // printf("%d", patternSequence[freePosition]);
-        freePosition++;
-
-        // TODO: Display the patternSequence array using LED
-
+        for(int i = 0; i < numOfValues; ++i){
+            patternSequence[i] = rand() % 4;
+        }
+        for (int i = 0; i < numOfValues; ++i){
+            displayLetters(patternSequence[i]);
+            sleepForMs(1500);
+        }
+        
         // Get user button input
         bool stateUserInput = true;
         int lastButtonPressed = -1;
