@@ -27,6 +27,8 @@
 #define BUFFER_SIZE 2000
 
 int main() {
+    initDisplay();
+    clearMatrixDisplay();
     char config_pin[50];
 
     for (int i = 41; i < 45; i++) {  // importing necessary pins as GPIO, inputmode

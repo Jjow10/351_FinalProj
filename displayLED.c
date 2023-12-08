@@ -156,3 +156,10 @@ void displayLetters(int numToLetter){
         writeI2cReg(i2cFileDesc, (i+1)*2, letterDisplay[numToLetter][i]);
     }
 }
+
+void clearMatrixDisplay(){
+    int i2cFileDesc = initI2cBus(I2CDRV_LINUX_BUS2, LED_DISPLAY_ADDRESS);
+    for(int i = 0; i <= 7; ++i){
+        writeI2cReg(i2cFileDesc, i*2, 0x00);
+    }
+}
