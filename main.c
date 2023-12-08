@@ -9,10 +9,7 @@
 #include <unistd.h>  // for close()
 
 #include "GPIO_mode.h"
-#include "LED.h"
-#include "buttonState.h"
-#include "timeFunctions.h"
-
+#include "displayLED.h"
 /**
  * BUTTON WIRING:
  * RED -> P_8.41
@@ -51,7 +48,6 @@ int main() {
             exit(1);
         }
     }
-
     /////////////////////////////
     //  LED MATRIX LOGIC HERE //
     ////////////////////////////
