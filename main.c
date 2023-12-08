@@ -76,7 +76,6 @@ int main() {
         // Get user button input
         bool stateUserInput = true;
         int lastButtonPressed = -1;
-        int userSequence[freePosition];
         while (stateUserInput) {
             
         }
