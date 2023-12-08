@@ -99,11 +99,21 @@ int main() {
             } else if (isButtonPressed(BLUE) && lastButtonPressed != 2) {
                 lastButtonPressed = 2;
                 printf("BLUE is pressed!\n");
-                stateUserInput = false;
+                if (patternSequence[userSequenceIndex] == 2) {
+                    continue;
+                } else {
+                    // TODO: Display X
+                    exit(0);
+                }
             } else if (isButtonPressed(YELLOW) && lastButtonPressed != 3) {
                 lastButtonPressed = 3;
                 printf("YELLOW is pressed!\n");
-                stateUserInput = false;
+                if (patternSequence[userSequenceIndex] == 3) {
+                    continue;
+                } else {
+                    // TODO: Display X
+                    exit(0);
+                }
             }
         }
 
