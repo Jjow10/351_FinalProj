@@ -65,8 +65,8 @@ int main() {
         for (int i = 0; i < sequenceSize; ++i) {
             LED_all_off();
             sleepForMs(1000);
-                                               displayLetters(patternSequence[i]);
-             for (int j = 72; j < 75; j++) {  // checking early press
+            displayLetters(patternSequence[i]);
+            for (int j = 72; j < 75; j++) {  // checking early press
                 char color_button_path[50];
                 sprintf(color_button_path, "%s%i/value", GPIO, j);  // open up the gpio/value file
                 if (isButtonPressed(color_button_path) == true) {
