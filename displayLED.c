@@ -14,9 +14,13 @@ static const unsigned char digitDisplay[10][3] = {
     {0x1B, 0xA4, 0x1B}, // 8
     {0x3F, 0x84, 0x03}  // 9
 };
-static const unsigned char letterDisplay[4][] = {
-    {}
-}
+static const unsigned char letterDisplay[5][5] = {
+    {0x46, 0x29, 0x19, 0x09, 0x7F},
+    {0x01, 0x02, 0x7C, 0x02, 0x01},
+    {0x30, 0x29, 0x29, 0x21, 0x1E},
+    {0x36, 0x49, 0x49, 0x49, 0x7F},
+    {0x63, 0x14, 0x08, 0x14, 0x63}
+};
 
 //Initialize i2c bus
 int initI2cBus(char* bus, int address){
@@ -49,6 +53,10 @@ void initDisplay(){
     writeI2cReg(i2cFileDesc, 0x21, 0x00);
     //Set display to ON
     writeI2cReg(i2cFileDesc, 0x81, 0x00);
+
+    for(int i = 0; i <= 7; ++i){
+        writeI2cReg(i2cFileDesc, (i+4)*2, 0x00);
+    }
 }
 
 //Display inputted integer on 8x8 LED Matrix
@@ -86,9 +94,10 @@ void displayIntVal(int numToDisplay){
     }
 
     //Display ones digit
-    for(int i = 0; i < 4; ++i){
+    for(int i = 0; i < 3; ++i){
         writeI2cReg(i2cFileDesc, i*2, digitDisplay[onesDigit][i]);
     }
+    writeI2cReg(i2cFileDesc, 0x06, 0x00);
 }
 
 //Display inputted Double on 8x8 LED Matrix
@@ -136,14 +145,14 @@ void displayDoubleVal(double numToDisplay){
 
 void displayLetters(int numToLetter){
     int i2cFileDesc = initI2cBus(I2CDRV_LINUX_BUS2, LED_DISPLAY_ADDRESS);
-    
+    for(int i = 0; i <= 7; ++i){
+        writeI2cReg(i2cFileDesc, i*2, 0x00);
+    }
     //Check if within range 
-    //For testing purpose
     if (numToLetter > 4 || numToLetter < 0){
         printf("Invalid randomly generated value\n");
     }
-    int rowToDisplay = numToLetter;
     for(int i = 0 ; i < 5; i++){
-        writeI2cReg(i2cFileDesc, i*2, letterDisplay[rowToDisplay][i]);
+        writeI2cReg(i2cFileDesc, (i+1)*2, letterDisplay[numToLetter][i]);
     }
 }
