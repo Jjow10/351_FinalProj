@@ -57,16 +57,18 @@ int main() {
     bool gameOver = false;
     int patternSequence[BUFFER_SIZE];
     int sequenceSize = 0;
+    int record = -1;
     srand(time(NULL));
     while (!gameOver) {
         sequenceSize++;
+        record++;
         // Generate random integer between 0 and 3
         patternSequence[sequenceSize - 1] = rand() % 4;
         for (int i = 0; i < sequenceSize; ++i) {
             LED_all_off();
             sleepForMs(1000);
-            displayLetters(patternSequence[i]);
-            for (int j = 72; j < 75; j++) {  // checking early press
+                                               displayLetters(patternSequence[i]);
+             for (int j = 72; j < 75; j++) {  // checking early press
                 char color_button_path[50];
                 sprintf(color_button_path, "%s%i/value", GPIO, j);  // open up the gpio/value file
                 if (isButtonPressed(color_button_path) == true) {
@@ -89,6 +91,7 @@ int main() {
                     continue;
                 } else {
                     // TODO: Display X
+                    printf("Your record is %i!\n",record);
                     gameOver = true;
                 }
             } else if (isButtonPressed(YELLOW)) {
@@ -99,6 +102,7 @@ int main() {
                     continue;
                 } else {
                     // TODO: Display X
+                    printf("Your record is %i!\n",record);
                     gameOver = true;
                 }
             } else if (isButtonPressed(GREEN)) {
@@ -109,6 +113,7 @@ int main() {
                     continue;
                 } else {
                     // TODO: Display X
+                    printf("Your record is %i!\n",record);
                     gameOver = true;
                 }
             } else if (isButtonPressed(BLUE)) {
@@ -119,6 +124,7 @@ int main() {
                     continue;
                 } else {
                     // TODO: Display X
+                    printf("Your record is %i!\n",record);                    
                     gameOver = true;
                 }
             }
