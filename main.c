@@ -68,7 +68,6 @@ int main() {
         if(sequenceSize % 2 == 0 && LED_Display_Delay >= 500){
             LED_Display_Delay -= 250;
             LED_OFF_Delay -= 50;
-            printf("%d\n", LED_Display_Delay);
         }
         // Generate random integer between 0 and 3
         patternSequence[sequenceSize - 1] = rand() % 4;
