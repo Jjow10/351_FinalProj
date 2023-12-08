@@ -65,18 +65,14 @@ int main() {
     int freePosition = 0;
     srand(time(NULL));
     while (gameIsNotOver) {
-        srand(time(NULL));
         // Generate random integer between 0 and 3
         int random_colour = rand() % 3;
         // Append generated colour to patternSequence
         patternSequence[freePosition] = random_colour;
         freePosition++;
-
-        for (int i = 0; i < freePosition; ++i) {
-            displayLetters(patternSequence[i]);
-            sleepForMs(1500);
-        }
-        LED_all_off();
+        
+        displayLetters(patternSequence[freePosition]);
+        sleepForMs(1000);
 
         // Get user button input
         // bool stateUserInput = true;
