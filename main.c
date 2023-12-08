@@ -68,18 +68,12 @@ int main() {
         for (int i = 0; i < sequenceSize; ++i) {
             LED_all_off();
             displayLetters(patternSequence[i]);
-            sleepForMs(1500);
+            sleepForMs(1000);
             clearMatrixDisplay();
-            sleepForMs(750);
-            for (int j = 72; j < 75; j++) {  // checking early press
-                char color_button_path[50];
-                sprintf(color_button_path, "%s%i/value", GPIO, j);  // open up the gpio/value file
-                if (isButtonPressed(color_button_path) == true) {
-                    printf("You pressed too soon!\n");
-                exit(1);
-                }
-            }
+            sleepForMs(500);
         }
+        printf("\nRound %i!\n",record +1);
+        printf("Press now!\n");
         // Get user button input
         bool stateUserInput = true;
         int userSequenceIndex = -1;
