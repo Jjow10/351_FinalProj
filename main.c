@@ -67,12 +67,18 @@ int main() {
         patternSequence[freePosition] = random_colour;
         freePosition++;
 
-        // TODO: Display the colour array sequence using LED
-
+        for (int i = 0; i < freePosition; ++i){
+            displayLetters(patternSequence[i]);
+            sleepForMS(1500);
+        }
+        LED_all_off();
+        
         // Get user button input
         bool stateUserInput = true;
         int lastButtonPressed = -1;
+        int userSequence[freePosition];
         while (stateUserInput) {
+            
         }
     }
 
