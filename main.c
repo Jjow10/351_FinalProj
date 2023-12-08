@@ -29,6 +29,7 @@
 #define BLUE "/sys/class/gpio/gpio73/value"
 
 #define BUFFER_SIZE 2000
+#define ROW_FOR_X 4
 
 int main() {
     initDisplay();
@@ -80,7 +81,7 @@ int main() {
         int lastButtonPressed = -1;
         int userSequenceIndex = -1;
 
-        while (stateUserInput && userSequenceIndex < freePosition - 1) {
+        while (stateUserInput && userSequenceIndex < numOfValues) {
             if (isButtonPressed(RED) && lastButtonPressed != 0) {
                 lastButtonPressed = 0;
                 userSequenceIndex++;
@@ -88,7 +89,8 @@ int main() {
                 if (patternSequence[userSequenceIndex] == 0) {
                     continue;
                 } else {
-                    // TODO: Display X
+                    displayLetters(ROW_FOR_X);
+                    sleepForMs(1500);// for testing purposes to see x
                     exit(0);
                 }
             } else if (isButtonPressed(GREEN) && lastButtonPressed != 1) {
@@ -98,7 +100,8 @@ int main() {
                 if (patternSequence[userSequenceIndex] == 1) {
                     continue;
                 } else {
-                    // TODO: Display X
+                    displayLetters(ROW_FOR_X);
+                    sleepForMs(1500);// for testing purposes to see x
                     exit(0);
                 }
             } else if (isButtonPressed(BLUE) && lastButtonPressed != 2) {
@@ -107,7 +110,8 @@ int main() {
                 if (patternSequence[userSequenceIndex] == 2) {
                     continue;
                 } else {
-                    // TODO: Display X
+                    displayLetters(ROW_FOR_X);
+                    sleepForMs(1500);// for testing purposes to see x
                     exit(0);
                 }
             } else if (isButtonPressed(YELLOW) && lastButtonPressed != 3) {
@@ -116,7 +120,8 @@ int main() {
                 if (patternSequence[userSequenceIndex] == 3) {
                     continue;
                 } else {
-                    // TODO: Display X
+                    displayLetters(ROW_FOR_X);
+                    sleepForMs(1500); // for testing purposes to see x
                     exit(0);
                 }
             }
