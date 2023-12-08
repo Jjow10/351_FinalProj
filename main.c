@@ -72,14 +72,13 @@ int main() {
             clearMatrixDisplay();
             sleepForMs(500);
         }
-        printf("\nRound %i!\n",record +1);
+        printf("\nRound %i!\n", record + 1);
         printf("Press now!\n");
         // Get user button input
-        bool stateUserInput = true;
         int userSequenceIndex = -1;
 
         LED_all_on();
-        while (stateUserInput && (userSequenceIndex < sequenceSize - 1) && !gameOver) {
+        while ((userSequenceIndex < sequenceSize - 1) && !gameOver) {
             if (isButtonPressed(RED)) {
                 userSequenceIndex++;
                 printf("RED is pressed!\n");
@@ -89,7 +88,7 @@ int main() {
                 } else {
                     displayLetters(ROW_FOR_X);
                     sleepForMs(1500);
-                    printf("Your record is %i!\n",record);
+                    printf("Your record is %i!\n", record);
                     gameOver = true;
                 }
             } else if (isButtonPressed(YELLOW)) {
@@ -101,7 +100,7 @@ int main() {
                 } else {
                     displayLetters(ROW_FOR_X);
                     sleepForMs(1500);
-                    printf("Your record is %i!\n",record);
+                    printf("Your record is %i!\n", record);
                     gameOver = true;
                 }
             } else if (isButtonPressed(GREEN)) {
@@ -113,7 +112,7 @@ int main() {
                 } else {
                     displayLetters(ROW_FOR_X);
                     sleepForMs(1500);
-                    printf("Your record is %i!\n",record);
+                    printf("Your record is %i!\n", record);
                     gameOver = true;
                 }
             } else if (isButtonPressed(BLUE)) {
@@ -125,7 +124,7 @@ int main() {
                 } else {
                     displayLetters(ROW_FOR_X);
                     sleepForMs(1500);
-                    printf("Your record is %i!\n",record);                    
+                    printf("Your record is %i!\n", record);
                     gameOver = true;
                 }
             }
