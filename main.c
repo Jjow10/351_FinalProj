@@ -29,7 +29,6 @@
 #define BLUE "/sys/class/gpio/gpio73/value"
 
 #define BUFFER_SIZE 2000
-#define ROW_FOR_X 4
 
 int main() {
     initDisplay();
@@ -47,17 +46,9 @@ int main() {
     printf("press the corresponding buttons when the LEDs are all on\n");
     sleepForMs(3000);
 
-    for (int i = 72; i < 75; i++) {  // checking early press
-        char color_button_path[50];
-        sprintf(color_button_path, "%s%i/value", GPIO, i);  // open up the gpio/value file
-        if (isButtonPressed(color_button_path) == true) {
-            printf("You pressed too soon!\n");
-            exit(1);
-        }
-    }
     /////////////////////////////
     //  LED MATRIX LOGIC HERE //
-    ////////////////////////////
+    ////////////////////////////config-p
     LED_all_on();
 
     /////////////////////////////////
@@ -73,17 +64,23 @@ int main() {
         patternSequence[sequenceSize - 1] = rand() % 4;
         for (int i = 0; i < sequenceSize; ++i) {
             LED_all_off();
-            displayLetters(patternSequence[i]);
             sleepForMs(1000);
-            clearMatrixDisplay();
-            sleepForMs(500);
+                                               displayLetters(patternSequence[i]);
+             for (int j = 72; j < 75; j++) {  // checking early press
+                char color_button_path[50];
+                sprintf(color_button_path, "%s%i/value", GPIO, j);  // open up the gpio/value file
+                if (isButtonPressed(color_button_path) == true) {
+                   printf("You pressed too soon!\n");
+                exit(1);
+                }
+            }
+            sleepForMs(1500);
         }
         // Get user button input
         bool stateUserInput = true;
         int userSequenceIndex = -1;
 
-        LED_all_on();
-        while (stateUserInput && (userSequenceIndex < sequenceSize - 1) && !gameOver) {
+        while (stateUserInput && userSequenceIndex < sequenceSize - 1) {
             if (isButtonPressed(RED)) {
                 userSequenceIndex++;
                 printf("RED is pressed!\n");
@@ -91,8 +88,7 @@ int main() {
                 if (patternSequence[userSequenceIndex] == 0) {
                     continue;
                 } else {
-                    displayLetters(ROW_FOR_X);
-                    sleepForMs(1500);
+                    // TODO: Display X
                     gameOver = true;
                 }
             } else if (isButtonPressed(YELLOW)) {
@@ -102,8 +98,7 @@ int main() {
                 if (patternSequence[userSequenceIndex] == 1) {
                     continue;
                 } else {
-                    displayLetters(ROW_FOR_X);
-                    sleepForMs(1500);
+                    // TODO: Display X
                     gameOver = true;
                 }
             } else if (isButtonPressed(GREEN)) {
@@ -113,8 +108,7 @@ int main() {
                 if (patternSequence[userSequenceIndex] == 2) {
                     continue;
                 } else {
-                    displayLetters(ROW_FOR_X);
-                    sleepForMs(1500);
+                    // TODO: Display X
                     gameOver = true;
                 }
             } else if (isButtonPressed(BLUE)) {
@@ -124,8 +118,7 @@ int main() {
                 if (patternSequence[userSequenceIndex] == 3) {
                     continue;
                 } else {
-                    displayLetters(ROW_FOR_X);
-                    sleepForMs(1500);
+                    // TODO: Display X
                     gameOver = true;
                 }
             }
