@@ -25,5 +25,7 @@ void displayIntVal(int numToDisplay);
 void displayDoubleVal(double numToDisplay);
 //Display inputted integer mapped to letter on 8x8 LED Matrix
 void displayLetters(int numToLetter);
+//Turn all LEDs in matrix off
+void clearMatrixDisplay();
 
 #endif
