@@ -29,6 +29,7 @@
 #define BLUE "/sys/class/gpio/gpio73/value"
 
 #define BUFFER_SIZE 2000
+#define ROW_FOR_X 4
 
 int main() {
     initDisplay();
@@ -72,15 +73,17 @@ int main() {
         patternSequence[sequenceSize - 1] = rand() % 4;
         for (int i = 0; i < sequenceSize; ++i) {
             LED_all_off();
-            sleepForMs(1000);
             displayLetters(patternSequence[i]);
-            sleepForMs(1500);
+            sleepForMs(1000);
+            clearMatrixDisplay();
+            sleepForMs(500);
         }
         // Get user button input
         bool stateUserInput = true;
         int userSequenceIndex = -1;
 
-        while (stateUserInput && userSequenceIndex < sequenceSize - 1) {
+        LED_all_on();
+        while (stateUserInput && (userSequenceIndex < sequenceSize - 1) && !gameOver) {
             if (isButtonPressed(RED)) {
                 userSequenceIndex++;
                 printf("RED is pressed!\n");
@@ -88,7 +91,8 @@ int main() {
                 if (patternSequence[userSequenceIndex] == 0) {
                     continue;
                 } else {
-                    // TODO: Display X
+                    displayLetters(ROW_FOR_X);
+                    sleepForMs(1500);
                     gameOver = true;
                 }
             } else if (isButtonPressed(YELLOW)) {
@@ -98,7 +102,8 @@ int main() {
                 if (patternSequence[userSequenceIndex] == 1) {
                     continue;
                 } else {
-                    // TODO: Display X
+                    displayLetters(ROW_FOR_X);
+                    sleepForMs(1500);
                     gameOver = true;
                 }
             } else if (isButtonPressed(GREEN)) {
@@ -108,7 +113,8 @@ int main() {
                 if (patternSequence[userSequenceIndex] == 2) {
                     continue;
                 } else {
-                    // TODO: Display X
+                    displayLetters(ROW_FOR_X);
+                    sleepForMs(1500);
                     gameOver = true;
                 }
             } else if (isButtonPressed(BLUE)) {
@@ -118,7 +124,8 @@ int main() {
                 if (patternSequence[userSequenceIndex] == 3) {
                     continue;
                 } else {
-                    // TODO: Display X
+                    displayLetters(ROW_FOR_X);
+                    sleepForMs(1500);
                     gameOver = true;
                 }
             }
