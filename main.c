@@ -64,43 +64,75 @@ int main() {
     int patternSequence[BUFFER_SIZE];
     int freePosition = 0;
     while (gameIsNotOver) {
-        srand(NULL);
+        srand(time(NULL));
         // Generate random integer between 0 and 3
         int random_colour = rand() % 3;
         // Append generated colour to patternSequence
         patternSequence[freePosition] = random_colour;
+        // printf("%d", patternSequence[freePosition]);
         freePosition++;
 
-        // TODO: Display the colour array sequence using LED
+        // TODO: Display the patternSequence array using LED
 
         // Get user button input
         bool stateUserInput = true;
         int lastButtonPressed = -1;
-        while (stateUserInput) {
-        }
-    }
+        int userSequenceIndex = -1;
 
-    // Uncomment if button testing needed
-    /*
-    //////////////////Button test//////////////
-    while (1) {
-        if (isButtonPressed(RED)) {
-            printf("RED is pressed!\n");
-        } else if (isButtonPressed(GREEN)) {
-            printf("GREEN is pressed!\n");
-        } else if (isButtonPressed(BLUE)) {
-            printf("BLUE is pressed!\n");
-        } else if (isButtonPressed(YELLOW)) {
-            printf("YELLOW is pressed!\n");
+        while (stateUserInput && userSequenceIndex < freePosition - 1) {
+            if (isButtonPressed(RED) && lastButtonPressed != 0) {
+                lastButtonPressed = 0;
+                userSequenceIndex++;
+                printf("RED is pressed!\n");
+                if (patternSequence[userSequenceIndex] == 0) {
+                    continue;
+                } else {
+                    // TODO: Display X
+                    exit(0);
+                }
+            } else if (isButtonPressed(GREEN) && lastButtonPressed != 1) {
+                lastButtonPressed = 1;
+                userSequenceIndex++;
+                printf("GREEN is pressed!\n");
+                if (patternSequence[userSequenceIndex] == 1) {
+                    continue;
+                } else {
+                    // TODO: Display X
+                    exit(0);
+                }
+            } else if (isButtonPressed(BLUE) && lastButtonPressed != 2) {
+                lastButtonPressed = 2;
+                printf("BLUE is pressed!\n");
+                stateUserInput = false;
+            } else if (isButtonPressed(YELLOW) && lastButtonPressed != 3) {
+                lastButtonPressed = 3;
+                printf("YELLOW is pressed!\n");
+                stateUserInput = false;
+            }
         }
-    }
-    /////////////////////////////////////////////
-    */
 
-    sleepForUs(100);
-    getTimeinUs();
-    for (int i = 41; i < 46; i++) {  // make gpio back to readmode after done
-        GPIO_readmode(i + 29);
+        // Uncomment if button testing needed
+        /*
+        //////////////////Button test//////////////
+        while (1) {
+            if (isButtonPressed(RED)) {
+                printf("RED is pressed!\n");
+            } else if (isButtonPressed(GREEN)) {
+                printf("GREEN is pressed!\n");
+            } else if (isButtonPressed(BLUE)) {
+                printf("BLUE is pressed!\n");
+            } else if (isButtonPressed(YELLOW)) {
+                printf("YELLOW is pressed!\n");
+            }
+        }
+        /////////////////////////////////////////////
+        */
+
+        sleepForUs(100);
+        getTimeinUs();
+        for (int i = 41; i < 45; i++) {  // make gpio back to readmode after done
+            GPIO_readmode(i + 31);
+        }
+        LED_all_return();
     }
-    LED_all_return();
 }
