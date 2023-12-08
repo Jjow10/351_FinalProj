@@ -61,18 +61,24 @@ int main() {
     int patternSequence[BUFFER_SIZE];
     int sequenceSize = 0;
     int record = -1;
+    int LED_Display_Delay = 1500;
+    int LED_OFF_Delay = 500;
     srand(time(NULL));
     while (!gameOver) {
         sequenceSize++;
         record++;
+        if(sequenceSize % 2 == 0 && LED_Display_Delay >= 500){
+            LED_Display_Delay -= 250;
+            LED_OFF_Delay -= 50;
+        }
         // Generate random integer between 0 and 3
         patternSequence[sequenceSize - 1] = rand() % 4;
         for (int i = 0; i < sequenceSize; ++i) {
             LED_all_off();
             displayLetters(patternSequence[i]);
-            sleepForMs(1000);
+            sleepForMs(LED_Display_Delay);
             clearMatrixDisplay();
-            sleepForMs(500);
+            sleepForMs(LED_OFF_Delay);
         }
         printf("\nRound %i!\n", record + 1);
         printf("Press now!\n");
